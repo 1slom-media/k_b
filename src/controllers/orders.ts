@@ -19,7 +19,7 @@ class OrdersController {
   }
 
   public async Post(req: Request, res: Response) {
-    const { customerName, status, pharmacyName, products } = req.body;
+    const { customerName, status, pharmacyName, products,totalPrice } = req.body;
     const id = orderid("key").generate();
 
     const order = new OrdersEntity();
@@ -28,6 +28,7 @@ class OrdersController {
     order.status = status;
     order.pharmacyName = pharmacyName;
     order.products = products;
+    order.totalPrice =totalPrice;
     await AppDataSource.manager.save(order);
 
     res.json({
@@ -40,7 +41,7 @@ class OrdersController {
   public async Put(req: Request, res: Response) {
     try {
       const {
-        customerName, status, pharmacyName, products 
+        customerName, status, pharmacyName, products,totalPrice 
       } = req.body;
       const { id } = req.params;
 
@@ -52,6 +53,7 @@ class OrdersController {
       order.status = status != undefined ? status : order.status;
       order.pharmacyName = pharmacyName != undefined ? pharmacyName : order.pharmacyName;
       order.products = products != undefined ? products : order.products;
+      order.totalPrice = totalPrice != undefined ? totalPrice : order.totalPrice;
 
       await AppDataSource.manager.save(order);
       res.json({

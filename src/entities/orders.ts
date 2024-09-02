@@ -22,6 +22,10 @@ export class OrdersEntity {
     @IsString()
     pharmacyName: string;
 
+    @Column({ type: "varchar" })
+    @IsString()
+    totalPrice: string;
+
     @Column({ type: "jsonb",nullable:true })
     products: string[];
 
